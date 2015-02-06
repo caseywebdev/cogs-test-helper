@@ -29,7 +29,14 @@ exports.run = function (configs) {
             getBuild(inputPath, function (er, build) {
               if (expectsError) expect(er).to.be.an.instanceOf(Error);
               else if (er) return cb(er);
-              else expect(build).to.deep.equal(expected);
+              else {
+
+                // Chai doesn't do a good job of diffing nested node Buffers, so
+                // check just the buffers first (which it diffs just fine), then
+                // check the entire build.
+                expect(build.buffer).to.deep.equal(expected.buffer);
+                expect(build).to.deep.equal(expected);
+              }
               cb();
             });
           });
