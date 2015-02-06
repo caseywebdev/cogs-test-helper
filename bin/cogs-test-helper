@@ -1,0 +1,17 @@
+#!/usr/bin/env node
+
+var path = require('path');
+var spawn = require('child_process').spawn;
+
+var istanbul = path.resolve(
+  path.dirname(require.resolve('istanbul')),
+  require('istanbul/package').bin.istanbul
+);
+
+var _mocha = path.resolve(
+  path.dirname(require.resolve('mocha')),
+  require('mocha/package').bin._mocha
+);
+
+var args = ['cover', _mocha].concat(process.argv.slice(2));
+spawn(istanbul, args, {stdio: 'inherit'});
