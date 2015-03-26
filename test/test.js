@@ -16,6 +16,7 @@ helper.run({
         hash: helper.getGlobHash('test/+(input).in')
       }]
     },
+    'test/error.in': Error,
     'test/does-not-exist': Error
   }
 });

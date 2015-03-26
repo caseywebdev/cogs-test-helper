@@ -2,7 +2,7 @@
   "in": {
     "in": {
       "out": "out",
-      "transformers": "directives"
+      "transformers": "./test/transformer"
     }
   }
 }
