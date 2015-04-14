@@ -10,6 +10,14 @@ var beforeEach = global.beforeEach;
 var describe = global.describe;
 var it = global.it;
 
+// HACK: https://github.com/mochajs/mocha/issues/1241
+// The maintainer says this was fixed, but it's still broke in v2.2.4...
+var utils = require('mocha/lib/utils');
+var stringify = utils.stringify;
+utils.stringify = function (value) {
+  return typeof value === 'string' ? value : stringify(value);
+};
+
 exports.run = function (configs) {
   Object.keys(configs).forEach(function (configPath) {
     var builds = configs[configPath];
@@ -34,7 +42,7 @@ exports.run = function (configs) {
                 // Chai doesn't do a good job of diffing nested node Buffers, so
                 // check just the buffers first (which it diffs just fine), then
                 // check the entire build.
-                expect(build.buffer).to.deep.equal(expected.buffer);
+                expect('' + build.buffer).to.equal('' + expected.buffer);
                 expect(build).to.deep.equal(expected);
               }
               cb();
