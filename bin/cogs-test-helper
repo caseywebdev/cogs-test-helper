@@ -14,4 +14,5 @@ var _mocha = path.resolve(
 );
 
 var args = ['cover', _mocha].concat(process.argv.slice(2));
-spawn(istanbul, args, {stdio: 'inherit'});
+spawn(istanbul, args, {stdio: 'inherit'})
+  .on('exit', process.exit.bind(process));
