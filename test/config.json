@@ -1,8 +1,9 @@
 {
-  "in": {
-    "in": {
-      "out": "out",
-      "transformers": "./test/transformer"
+  "pipe": [
+    {
+      "name": "./test/transformer",
+      "only": "**/*.in",
+      "ext": ".out"
     }
-  }
+  ]
 }

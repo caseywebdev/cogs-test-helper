@@ -1,6 +1,6 @@
 {
   "name": "cogs-test-helper",
-  "version": "1.0.7",
+  "version": "2.0.0",
   "author": "Casey Foster <c@sey.me>",
   "description": "A test helper for Cogs transformers.",
   "license": "MIT",
@@ -12,7 +12,7 @@
     "url": "https://github.com/caseywebdev/cogs-test-helper"
   },
   "dependencies": {
-    "cogs": "1.x",
+    "cogs": "2.x",
     "chai": "3.x",
     "glob": "6.x",
     "istanbul": "0.4.x",
