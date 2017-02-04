@@ -1,6 +1,6 @@
 {
   "name": "cogs-test-helper",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "author": "Casey Foster <c@sey.me>",
   "description": "A test helper for Cogs transformers.",
   "license": "MIT",

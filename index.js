@@ -8,6 +8,8 @@ const beforeEach = global.beforeEach;
 const describe = global.describe;
 const it = global.it;
 
+const NO_THROW_ERROR = new Error('Expected an error to be thrown');
+
 exports.run = configs => {
   Object.keys(configs).forEach(configPath => {
     const builds = configs[configPath];
@@ -28,10 +30,13 @@ exports.run = configs => {
           it(expectsError ? 'fails' : 'succeeds', () => {
             const promise = getBuild({path, env});
             if (expectsError) {
-              return promise.catch(er => {
-                if (expectsError) expect(er).to.be.an.instanceOf(Error);
-                else throw er;
-              });
+              return promise
+                .then(() => { throw NO_THROW_ERROR; })
+                .catch(er => {
+                  if (er === NO_THROW_ERROR) throw er;
+
+                  expect(er).to.be.an.instanceOf(Error);
+                });
             }
 
             return promise.then(build => {
