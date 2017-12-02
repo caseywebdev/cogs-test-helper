@@ -1,18 +1,24 @@
 #!/usr/bin/env node
 
-var path = require('path');
-var spawn = require('child_process').spawn;
+const path = require('path');
+const spawn = require('child_process').spawn;
 
-var istanbul = path.resolve(
-  path.dirname(require.resolve('istanbul')),
-  require('istanbul/package').bin.istanbul
+const istanbul = path.resolve(
+  path.dirname(require.resolve('nyc')),
+  require('nyc/package').bin.nyc
 );
 
-var _mocha = path.resolve(
+const mocha = path.resolve(
   path.dirname(require.resolve('mocha')),
-  require('mocha/package').bin._mocha
+  require('mocha/package').bin.mocha
 );
 
-var args = ['cover', _mocha].concat(process.argv.slice(2));
-spawn(istanbul, args, {stdio: 'inherit'})
-  .on('exit', process.exit.bind(process));
+spawn(
+  istanbul, [].concat(
+    '--temp-directory=./coverage/.nyc_output',
+    '--reporter=lcov',
+    mocha,
+    process.argv.slice(2)
+  ),
+  {stdio: 'inherit'}
+).on('exit', process.exit.bind(process));
