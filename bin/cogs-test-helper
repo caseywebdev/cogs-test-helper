@@ -16,6 +16,7 @@ const mocha = path.resolve(
 spawn(
   istanbul, [].concat(
     '--temp-directory=./coverage/.nyc_output',
+    '--reporter=text',
     '--reporter=lcov',
     mocha,
     process.argv.slice(2)
