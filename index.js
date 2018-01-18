@@ -40,7 +40,7 @@ exports.run = configs => {
             }
 
             return promise.then(build => {
-              expect(build.toString()).to.equal(expected.toString());
+              expect(build.buffer.toString()).to.equal(expected.toString());
             });
           });
         });
