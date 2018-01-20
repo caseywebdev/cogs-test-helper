@@ -3,7 +3,7 @@
 const path = require('path');
 const spawn = require('child_process').spawn;
 
-const istanbul = path.resolve(
+const nyc = path.resolve(
   path.dirname(require.resolve('nyc')),
   require('nyc/package').bin.nyc
 );
@@ -14,7 +14,7 @@ const mocha = path.resolve(
 );
 
 spawn(
-  istanbul,
+  nyc,
   [].concat(
     '--temp-directory=./coverage/.nyc_output',
     '--reporter=text',
