@@ -18,7 +18,7 @@ exports.run = configs => {
       let env;
 
       beforeEach(() => {
-        env = normalizeConfig(require(npath.resolve(configPath))).envs[0];
+        env = normalizeConfig(require(npath.resolve(configPath)))[0];
       });
 
       Object.keys(builds).forEach(path => {

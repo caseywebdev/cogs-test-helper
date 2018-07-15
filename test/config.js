@@ -5,7 +5,7 @@ module.exports = {
       if (source === 'buz\n') throw new SyntaxError();
 
       return {
-        buffer: new Buffer('bar\n'),
+        buffer: Buffer.from('bar\n'),
         globs: ['test/+(input).in']
       };
     },
