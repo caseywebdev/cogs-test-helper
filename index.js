@@ -18,7 +18,9 @@ exports.run = configs => {
       let env;
 
       beforeEach(() => {
-        env = normalizeConfig(require(npath.resolve(configPath)))[0];
+        env = normalizeConfig({
+          main: require(npath.resolve(configPath))
+        }).main;
       });
 
       Object.keys(builds).forEach(path => {
@@ -28,10 +30,12 @@ exports.run = configs => {
           const expectsError = expected === Error;
 
           it(expectsError ? 'fails' : 'succeeds', () => {
-            const promise = getBuild({path, env});
+            const promise = getBuild({ path, env });
             if (expectsError) {
               return promise
-                .then(() => { throw NO_THROW_ERROR; })
+                .then(() => {
+                  throw NO_THROW_ERROR;
+                })
                 .catch(er => {
                   if (er === NO_THROW_ERROR) throw er;
 
