@@ -1,7 +1,8 @@
-const normalizeConfig = require('cogs/src/normalize-config');
-const expect = require('chai').expect;
 const fs = require('fs');
+
+const expect = require('chai').expect;
 const getBuild = require('cogs/src/get-build');
+const normalizeConfig = require('cogs/src/normalize-config');
 const npath = require('npath');
 
 const beforeEach = global.beforeEach;
@@ -18,9 +19,8 @@ exports.run = configs => {
       let env;
 
       beforeEach(() => {
-        env = normalizeConfig({
-          main: require(npath.resolve(configPath))
-        }).main;
+        const main = require(npath.resolve(configPath));
+        env = normalizeConfig({ main }).main;
       });
 
       Object.keys(builds).forEach(path => {
@@ -29,23 +29,20 @@ exports.run = configs => {
         describe(path, () => {
           const expectsError = expected === Error;
 
-          it(expectsError ? 'fails' : 'succeeds', () => {
-            const promise = getBuild({ path, env });
-            if (expectsError) {
-              return promise
-                .then(() => {
-                  throw NO_THROW_ERROR;
-                })
-                .catch(er => {
-                  if (er === NO_THROW_ERROR) throw er;
+          it(expectsError ? 'fails' : 'succeeds', async () => {
+            try {
+              const {
+                buffers: { 0: actual }
+              } = await getBuild({ path, env });
 
-                  expect(er).to.be.an.instanceOf(Error);
-                });
+              if (expectsError) throw NO_THROW_ERROR;
+
+              expect(actual.toString()).to.equal(expected.toString());
+            } catch (er) {
+              if (er === NO_THROW_ERROR || !expectsError) throw er;
+
+              expect(er).to.be.an.instanceOf(Error);
             }
-
-            return promise.then(build => {
-              expect(build.buffer.toString()).to.equal(expected.toString());
-            });
           });
         });
       });
