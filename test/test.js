@@ -1,6 +1,6 @@
-var helper = require('..');
+import helper from '../src/index.js';
 
-helper.run({
+export default helper.createTests({
   'test/config.js': {
     'test/input.in': helper.getFileBuffer('test/output.out'),
     'test/error.in': Error,

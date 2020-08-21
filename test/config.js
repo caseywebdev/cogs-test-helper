@@ -1,6 +1,6 @@
-module.exports = {
+export default {
   transformers: {
-    fn: ({file}) => {
+    fn: ({ file }) => {
       const source = file.buffer.toString();
       if (source === 'buz\n') throw new SyntaxError();
 
