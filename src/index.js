@@ -1,6 +1,6 @@
 import { strict as assert } from 'assert';
 import fs from 'fs';
-import npath from 'path';
+import nodePath from 'path';
 
 import getBuild from 'cogs/src/get-build.js';
 import normalizeConfig from 'cogs/src/normalize-config.js';
@@ -16,7 +16,9 @@ export default {
           Object.entries(builds).map(([path, expected]) => [
             `build [${path}] ${expected === Error ? 'fails' : 'succeeds'}`,
             async () => {
-              const { default: main } = await import(npath.resolve(configPath));
+              const { default: main } = await import(
+                nodePath.resolve(configPath)
+              );
               const env = (await normalizeConfig({ main })).main;
               try {
                 const {
