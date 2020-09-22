@@ -2,8 +2,7 @@ import { strict as assert } from 'assert';
 import fs from 'fs';
 import nodePath from 'path';
 
-import getBuild from 'cogs/src/get-build.js';
-import normalizeConfig from 'cogs/src/normalize-config.js';
+import cogs from 'cogs';
 
 const NO_THROW_ERROR = new Error('Expected an error to be thrown');
 
@@ -19,11 +18,11 @@ export default {
               const { default: main } = await import(
                 nodePath.resolve(configPath)
               );
-              const env = (await normalizeConfig({ main })).main;
+              const env = (await cogs.normalizeConfig({ main })).main;
               try {
                 const {
                   buffers: { 0: actual }
-                } = await getBuild({ path, env });
+                } = await cogs.getBuild({ path, env });
 
                 if (expected === Error) throw NO_THROW_ERROR;
 
