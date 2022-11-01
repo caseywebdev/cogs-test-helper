@@ -1,7 +1,7 @@
 {
   "name": "cogs-test-helper",
   "type": "module",
-  "version": "4.0.1",
+  "version": "4.0.2",
   "author": "Casey Foster <c@sey.me>",
   "description": "A test helper for Cogs transformers.",
   "license": "MIT",
@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "cogs": "4",
-    "kiss-test": "0.1"
+    "kiss-test": "0.2"
   },
   "scripts": {
     "test": "src/cli.sh test/test.js"
